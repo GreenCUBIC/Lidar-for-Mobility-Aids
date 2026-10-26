@@ -1,0 +1,60 @@
+# Participant data and anything derived from it. Never commit these.
+*.csv
+*.pkl
+*.bin
+*.npy
+*.npz
+*.pcap
+*.ply
+*.mp4
+*.avi
+*.mov
+*.wav
+
+# Model weights and checkpoints
+*.pth
+*.pt
+*.ckpt
+checkpoints/
+checkpoints_tune/
+log/
+*_checkpoints/
+*_checkpoints_tune/
+*PRETRAINEDckpt*/
+*_cv/
+*_cv_5e4/
+*_400_650_cv/
+*_200_end_cv/
+
+# Generated datasets and run outputs
+ReID3D/database/*/
+exp/
+wandb/
+runs/
+best_model_phase_*.pth
+
+# Training logs (can contain participant IDs and paths)
+*training_log*.txt
+training_log*.txt
+loss.txt
+loss_dummy.txt
+
+# Secrets and local config
+.env
+.env.*
+!.env.example
+notification.py
+training_notify.py
+*.key
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
