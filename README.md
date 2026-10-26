@@ -5,7 +5,7 @@ Code for two studies on a Velodyne Alpha Prime VLS-128 dataset collected at the 
 1. **Mobility-aid classification** from a single LiDAR frame (Point Transformer V3, built on Pointcept).
 2. **Person re-identification** from LiDAR (ReID3D), preceded by a preprocessing pipeline that isolates one person per frame.
 
-Author: Sean Kirkby. Supervisor: Prof. James R. Green. [CONFIRM: authorship line, license, and how to cite the thesis and the MeMeA 2025 paper]
+Author: Sean Kirkby. Supervisor: Prof. James R. Green. (##)
 
 This repository contains **code only**. The participant data, trained weights and training outputs are not included and must not be added (see `.gitignore`).
 
@@ -49,7 +49,7 @@ The ReID scripts loop over modes named `walking wheelchair rollatorshuffling rol
 
 ## Environments
 
-Three conda environments exist on the original server: `base`, `pointcept` and `reid3d`. The package lists below come from the `import` statements in this repository. A version is given only where it is written down in the repository; everything else is marked [CONFIRM] and should be replaced by an exported environment file (`conda env export -n <name> --from-history`, or `conda list -n <name> --export`).
+Three conda environments exist on the original server: `base`, `pointcept` and `reid3d`. The package lists below come from the `import` statements in this repository. A version is given only where it is written down in the repository; everything else is marked [##] and should be replaced by an exported environment file (`conda env export -n <name> --from-history`, or `conda list -n <name> --export`).
 
 ### `base` (Anaconda default)
 
@@ -61,14 +61,14 @@ Used by `classification/classification.py`, `custom_models.py`, `count_pointclou
 
 | Package | Why |
 |---|---|
-| Python, PyTorch 2.0 or newer, CUDA build | `torch._dynamo` is imported (exists from PyTorch 2.0). Training used a CUDA GPU (A100 40 GB). [CONFIRM: exact versions] |
+| Python, PyTorch 2.0 or newer, CUDA build | `torch._dynamo` is imported (exists from PyTorch 2.0). Training used a CUDA GPU (A100 40 GB). [## exact versions] |
 | numpy, pandas | CSV loading and data handling |
 | scikit-learn | `confusion_matrix`, metrics |
 | matplotlib | confusion matrix figure |
 | Pointcept (clone, not pip) | `pointcept.models.utils.structure.Point` and `PointTransformerV3` |
-| Pointcept's own requirements | spconv, torch-scatter, timm, einops, addict and others. Follow the install section of the Pointcept README for the version you clone. [CONFIRM: list from the `pointcept` environment] |
-| flash-attn | The model config sets `enable_flash: True`. Set it to `False` if flash-attn cannot be installed. [CONFIRM: effect on results] |
-| CUDA toolkit 11.8 | An installer for it sits next to the code on the server; needed to build CUDA extensions. [CONFIRM] |
+| Pointcept's own requirements | spconv, torch-scatter, timm, einops, addict and others. Follow the install section of the Pointcept README for the version you clone. [## list from the `pointcept` environment] |
+| flash-attn | The model config sets `enable_flash: True`. Set it to `False` if flash-attn cannot be installed. 
+| CUDA toolkit 11.8 | An installer for it sits next to the code on the server; needed to build CUDA extensions.
 
 Pretrained weights: the PTv3 checkpoint trained on nuScenes, saved as `model_best.pth`.
 
@@ -88,11 +88,10 @@ Used by everything in `ReID3D/` (training, tuning, evaluation, database lists). 
 | plyfile | imported in `util/utils.py` (`.ply` reader), **not listed in `requirements.txt`** |
 | Pillow | imported in `util/utils.py`; normally installed together with torchvision |
 
-`requirements.local.txt` lists only numpy, scikit-learn, scipy and tqdm. [CONFIRM: what it is for] The imports of the upstream `model/` package were not checked. [CONFIRM]
 
 ### Preprocessing (`preprocessing/improved_processing.py`)
 
-Needs numpy, scikit-learn (DBSCAN) and open3d. pandas is optional (the script falls back to the `csv` module). **open3d is optional in the code, but without it ground removal, wall removal and outlier removal are skipped silently**, so the output is worse without any error message. [CONFIRM: which of the environments above it was run in]
+Needs numpy, scikit-learn (DBSCAN) and open3d. pandas is optional (the script falls back to the `csv` module). **open3d is optional in the code, but without it ground removal, wall removal and outlier removal are skipped silently**, so the output is worse without any error message. [## which of the environments above it was run in]
 
 ## Usage
 
@@ -107,7 +106,7 @@ Output goes to `<out-root>/reid3d/` in LReID format (`bbox_train`, `bbox_test`, 
 ### 2. Classification
 
 1. Clone Pointcept and copy `classification.py`, `custom_models.py` (and `count_pointclouds.py`) into its root.
-2. Replace `pointcept/models/utils/serialization/hilbert.py` with `classification/patches/hilbert.py`. [CONFIRM: what Sean changed, diff against upstream]
+2. Replace `pointcept/models/utils/serialization/hilbert.py` with `classification/patches/hilbert.py`. [##]
 3. Put the PTv3 weights pretrained on nuScenes at `model_best.pth` in the working directory.
 4. Set the `train`, `val`, `test` roots in `main()` and run `python classification.py`.
 
@@ -128,7 +127,7 @@ Optional notification hooks at the end of some scripts run only if `notification
 
 ## Results
 
-`classification/results/` holds the confusion matrices and `ReID3D/results/` holds the multi-query summaries (top-1, top-3, mAP per mode and seed). [CONFIRM: which result file matches which table in the thesis]
+`classification/results/` holds the confusion matrices and `ReID3D/results/` holds the multi-query summaries (top-1, top-3, mAP per mode and seed). [## which result file matches which table in the thesis]
 
 ## Known limitations
 
@@ -150,4 +149,4 @@ This repository was assembled from a copy of the original code on the lab server
 - [ReID3D / LReID](https://github.com/GWxuan/ReID3D), Guo et al., "LiDAR-based Person Re-identification".
 - nuScenes, for the pretrained PTv3 weights.
 
-Check the license of each upstream project before making this repository public. [CONFIRM]
+Check the license of each upstream project before making this repository public. [##]
